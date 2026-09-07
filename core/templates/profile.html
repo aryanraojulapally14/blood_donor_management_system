@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+
+    <h2 class="text-center mb-4">👤 Profile</h2>
+
+    <div class="card shadow p-4">
+
+        <h4>Username: {{ user.username }}</h4>
+
+        {% if donor %}
+            <p><b>Role:</b> Donor</p>
+            <p><b>Blood Group:</b> {{ donor.blood_group }}</p>
+            <p><b>Location:</b> {{ donor.location }}</p>
+        {% endif %}
+
+        {% if hospital %}
+            <p><b>Role:</b> Hospital</p>
+            <p><b>Name:</b> {{ hospital.name }}</p>
+            <p><b>Location:</b> {{ hospital.location }}</p>
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

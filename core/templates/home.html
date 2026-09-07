@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!--  HERO SECTION -->
+<div class="text-center py-5 hero">
+
+    <h1 class="display-5 fw-bold text-danger mb-3">
+        🩸 Save Lives with Smart Blood Donation
+    </h1>
+
+    <p class="lead text-muted mb-4">
+        Instantly connect hospitals with eligible donors when every second matters ❤️
+    </p>
+
+    <!--  USER BASED UI -->
+    {% if user.is_authenticated %}
+
+        <h5 class="mb-3">Welcome, {{ user.username }} </h5>
+
+        <a href="/dashboard/" class="btn btn-success btn-lg px-4">
+             Go to Dashboard
+        </a>
+
+    {% else %}
+
+        <a href="/register/" class="btn btn-danger btn-lg m-2 px-4">
+            🩸 Register as Donor
+        </a>
+
+        <a href="/register-hospital/" class="btn btn-primary btn-lg m-2 px-4">
+            🏥 Register as Hospital
+        </a>
+
+        <br><br>
+
+        <a href="/login/" class="btn btn-success px-4">
+            Login
+        </a>
+
+    {% endif %}
+
+</div>
+    </div>
+
+</div>
+
+<hr>
+
+<!--  FEATURES SECTION -->
+<div class="container mt-5">
+
+    <h3 class="text-center mb-4">✨ Features</h3>
+
+    <div class="row g-4 text-center">
+
+        <div class="col-md-4">
+            <div class="card shadow border-0 p-4 h-100">
+                <h4>🔍 Smart Search</h4>
+                <p class="text-muted">
+                    Find eligible donors based on blood group and location instantly.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow border-0 p-4 h-100">
+                <h4>⏳ Eligibility Tracking</h4>
+                <p class="text-muted">
+                    Automatically ensures donors are eligible based on last donation date.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow border-0 p-4 h-100">
+                <h4>📞 Instant Contact</h4>
+                <p class="text-muted">
+                    Contact donors directly via phone or email in emergencies.
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<hr>
+
+<!--  HOW IT WORKS -->
+<div class="container mt-5">
+
+    <h3 class="text-center mb-4"> How It Works</h3>
+
+    <div class="row g-4 text-center">
+
+        <div class="col-md-4">
+            <div class="card border-0 p-3">
+                <h5>1️⃣ Register</h5>
+                <p class="text-muted">Sign up as a donor or hospital</p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card border-0 p-3">
+                <h5>2️⃣ Search</h5>
+                <p class="text-muted">Hospitals search for nearby donors</p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card border-0 p-3">
+                <h5>3️⃣ Connect</h5>
+                <p class="text-muted">Contact donors instantly</p>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<hr>
+
+<!-- FOOTER -->
+<div class="text-center mt-5 mb-3">
+    <p class="text-muted">
+        Crafted with ❤️ by Aryan | Saving lives through technology 🩸
+    </p>
+</div>
+
+{% endblock %}

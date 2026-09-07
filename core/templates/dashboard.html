@@ -1,0 +1,182 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="text-center mb-4">
+        <h2>Welcome, {{ user.username }} 👋</h2>
+        <p class="text-muted">LifeLink Dashboard</p>
+    </div>
+
+    <div class="row g-4">
+
+        <!-- ================= DONOR SIDE ================= -->
+        {% if is_donor %}
+
+        <!-- ✅ CLEANED: Removed big request list -->
+
+        <!-- DONOR CARDS -->
+        <div class="col-md-4">
+            <div class="card shadow border-0 bg-danger text-white">
+                <div class="card-body text-center">
+                    <h4>🩸 Blood Requests</h4>
+                    <p>Check available donation requests</p>
+
+                    <div class="d-grid gap-2">
+                        <!-- 🔥 NEW PAGE -->
+                        <a href="/donor-requests/" class="btn btn-light">
+                            View Requests
+                        </a>
+
+                        <a href="/my-donations/" class="btn btn-outline-light">
+                             Contributions
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- AVAILABILITY -->
+        <div class="col-md-4">
+            <div class="card shadow border-0 bg-dark text-white">
+                <div class="card-body text-center">
+
+                    <h4>📍 Availability</h4>
+
+                    {% if days_left %}
+                        <button class="btn btn-secondary w-100" disabled>
+                            Not Eligible ({{ days_left }} days left)
+                        </button>
+                    {% else %}
+                        <a href="/donate/" class="btn btn-danger w-100">
+                            I Donated Today
+                        </a>
+                    {% endif %}
+
+                    {% if donor.last_donation_date %}
+                        <p class="mt-3 text-light">
+                            Last Donation: {{ donor.last_donation_date }}
+                        </p>
+                    {% endif %}
+
+                    {% if days_left %}
+                        <p class="mt-2 text-warning">
+                            ⏳ You can donate after <b>{{ days_left }}</b> days
+                        </p>
+                    {% else %}
+                        <p class="mt-2 text-success">
+                            ✅ You are eligible to donate
+                        </p>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+
+        {% endif %}
+
+
+        <!-- ================= HOSPITAL SIDE ================= -->
+        {% if is_hospital %}
+
+        <!-- REQUEST LIST -->
+        {% if requests %}
+        <div class="col-12">
+            <div class="card shadow border-0 p-3">
+
+                <h4 class="text-primary">📋 My Requests</h4>
+
+                {% for r in requests %}
+                <div class="border p-3 mb-2 rounded">
+
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <b>{{ r.blood_group }}</b> needed at {{ r.location }}
+                        </div>
+
+                        {% if r.status == 'fulfilled' %}
+                            <span class="badge bg-success">Fulfilled</span>
+                        {% else %}
+                            <span class="badge bg-warning text-dark">Pending</span>
+                        {% endif %}
+                    </div>
+
+                    {% if r.fulfilled_by %}
+                        <p class="mt-2 text-success">
+                            ✔ Fulfilled by {{ r.fulfilled_by.user.username }}
+                        </p>
+                    {% endif %}
+
+                    {% if r.status == 'pending' %}
+                    <form method="POST" action="/confirm-request/{{ r.id }}/" class="mt-2">
+                        {% csrf_token %}
+
+                        <select name="donor_id" class="form-select mb-2">
+                            {% for d in donors %}
+                                <option value="{{ d.id }}">
+                                    {{ d.user.username }} ({{ d.blood_group }})
+                                </option>
+                            {% endfor %}
+                        </select>
+
+                        <button class="btn btn-success btn-sm w-100">
+                            ✅ Confirm Donation
+                        </button>
+                    </form>
+                    {% endif %}
+
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- HOSPITAL CARDS -->
+        <div class="col-md-4">
+            <div class="card shadow border-0 bg-primary text-white">
+                <div class="card-body text-center">
+                    <h4>🔍 Search Donors</h4>
+                    <a href="/search/" class="btn btn-light">Search</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow border-0 bg-success text-white">
+                <div class="card-body text-center">
+                    <h4>🚨 Request Blood</h4>
+
+                    <div class="d-grid gap-2">
+                        <a href="/create-request/" class="btn btn-light">Request</a>
+
+                        <a href="/request-history/" class="btn btn-outline-light">
+                            📜 Request History
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        {% endif %}
+
+
+        <!-- COMMON -->
+        <div class="col-md-4">
+            <div class="card shadow border-0 bg-secondary text-white">
+                <div class="card-body text-center">
+                    <h4>👤 Profile</h4>
+                    <a href="/profile/" class="btn btn-light">View</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

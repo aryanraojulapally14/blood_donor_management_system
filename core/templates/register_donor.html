@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="card shadow-lg border-0">
+            <div class="card-body">
+
+                <h3 class="text-center mb-4 text-danger">🩸 Donor Registration</h3>
+
+                <form method="POST">
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        {{ form.username.label_tag }}
+                        {{ form.username }}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form.password.label_tag }}
+                        {{ form.password }}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form.blood_group.label_tag }}
+                        {{ form.blood_group }}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form.location.label_tag }}
+                        {{ form.location }}
+                    </div>
+
+                    
+                    <div class="mb-3">
+                        {{ form.phone.label_tag }}
+                        {{ form.phone }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.email.label_tag }}
+                        {{ form.email }}
+                    </div>
+
+                    <button class="btn btn-danger w-100">Register</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if form.errors %}
+<div class="alert alert-danger mt-3">
+    {{ form.errors }}
+</div>
+{% endif %}
+
+{% endblock %}

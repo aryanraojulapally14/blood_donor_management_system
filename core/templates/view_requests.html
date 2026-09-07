@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h3>Emergency Requests</h3>
+
+{% for r in requests %}
+<div class="card p-3 mb-2">
+    <b>{{ r.hospital.name }}</b> needs {{ r.blood_group }} at {{ r.location }}
+</div>
+{% endfor %}
+
+{% endblock %}
