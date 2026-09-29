@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import Donor, Hospital, BloodRequest
 
+#this is saidulu who made changes
 
 # 👤 DONOR ADMIN
 @admin.register(Donor)
